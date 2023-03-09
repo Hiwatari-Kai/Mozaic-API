@@ -2,6 +2,7 @@ const express = require("express");
 const router = new express.Router();
 const User = require("../models/user");
 
+
 const randomNames = ["Kai", "Snape", "Zoid", "Sagar"];
 const randomAdjectives = ["Cool", "Happy", "Sexy"];
 
@@ -31,10 +32,6 @@ router.post("/login", async (req, res) => {
       walletAddress: walletAddress,
       name: name,
       joined: Date.now(),
-      // profileImageUrl:
-      //   "https://res.cloudinary.com/dkoxgwtku/image/upload/v1677942841/hitler_as_a_modern_hipster_evsecp.jpg",
-      // coverImageUrl:
-      //   "https://res.cloudinary.com/dkoxgwtku/image/upload/v1677944863/cinematic_1_m9jygb.jpg",
     });
     user = await user.save();
     return res.status(201).send(user);
@@ -78,5 +75,20 @@ router.post("/updateRating", async (req, res) => {
     res.status(400).send(e);
   }
 });
+
+router.get("/search",async(req, res) => {
+  let term = req.query.term;
+
+  term = new RegExp(term, "i");
+  try {
+    //console.log("try");
+    const users = await User.find({ name: { $regex: term } });
+
+    res.status(200).json({ success: true, data: users });
+  } catch (e) {
+    res.status(400).json({ success: false, error: e });
+  }
+
+})
 
 module.exports = router;
