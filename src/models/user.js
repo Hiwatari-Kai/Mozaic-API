@@ -11,49 +11,51 @@ const userSchema = new mongoose.Schema({
   walletAddress: {
     type: String,
     required: true,
-    unique:true,
+    unique: true,
   },
   description: {
     type: String,
-    trim : true,
+    trim: true,
   },
   joined: {
     type: Date,
-    required :true,
+    required: true,
   },
 
   websiteLink: {
     type: String,
-    trim:true,
+    trim: true,
   },
   externalLinks: [
     {
       name: {
-        type:String,
+        type: String,
       },
       url: {
-        type:String,
-      }
-    }
+        type: String,
+      },
+    },
   ],
   profileImageUrl: {
-    type:String,
+    type: String,
+    default:
+      "https://res.cloudinary.com/dkoxgwtku/image/upload/v1677942841/hitler_as_a_modern_hipster_evsecp.jpg",
   },
   coverImageUrl: {
-    type:String,
+    type: String,
+    default:
+      "https://res.cloudinary.com/dkoxgwtku/image/upload/v1677944863/cinematic_1_m9jygb.jpg",
   },
   rating: {
-    sum :{
+    sum: {
       type: Number,
-      default : 0,
+      default: 0,
     },
     count: {
       type: Number,
-      default :0
-    }
-  }
-
-
+      default: 0,
+    },
+  },
 });
 
 userSchema.statics.findByWalletAddress= async (walletAddress) => {
