@@ -2,7 +2,6 @@ const express = require("express");
 const router = new express.Router();
 const User = require("../models/user");
 
-
 const randomNames = ["Kai", "Snape", "Zoid", "Sagar"];
 const randomAdjectives = ["Cool", "Happy", "Sexy"];
 
@@ -41,20 +40,14 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/update", async (req, res) => {
-  
   const { user } = req.body;
   const walletAddress = user.walletAddress;
   console.log(walletAddress);
 
   try {
-    let result = await User.findOneAndUpdate(
-      { walletAddress },
-      user,
-      {
-        new: true,
-      }
-    );
-    
+    let result = await User.findOneAndUpdate({ walletAddress }, user, {
+      new: true,
+    });
 
     res.status(200).send(result);
   } catch (e) {
@@ -76,7 +69,7 @@ router.post("/updateRating", async (req, res) => {
   }
 });
 
-router.get("/search",async(req, res) => {
+router.get("/search", async (req, res) => {
   let term = req.query.term;
 
   term = new RegExp(term, "i");
@@ -84,11 +77,10 @@ router.get("/search",async(req, res) => {
     //console.log("try");
     const users = await User.find({ name: { $regex: term } });
 
-    res.status(200).json({ success: true, data: users });
+    return res.status(200).send(users);
   } catch (e) {
-    res.status(400).json({ success: false, error: e });
+    return res.status(400).send(e);
   }
-
-})
+});
 
 module.exports = router;
