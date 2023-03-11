@@ -6,9 +6,16 @@ const randomNames = ["Kai", "Snape", "Zoid", "Sagar"];
 const randomAdjectives = ["Cool", "Happy", "Sexy"];
 
 router.get("/profile", async (req, res) => {
-  const walletAddress = req.query.walletAddress;
+  let walletAddress = req.query.walletAddress;
+  if (!walletAddress) {
+      return res.send(400)
+  }
+  walletAddress = walletAddress.toString().toLowerCase()
+
+  console.log(`walletAdd: ${walletAddress}`)
   try {
     const user = await User.findByWalletAddress(walletAddress);
+    console.log(user)
     res.status(200).send(user);
   } catch (e) {
     res.status(400).send(e);
@@ -17,7 +24,7 @@ router.get("/profile", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   const { walletAddress } = req.body;
-
+  
   let user = await User.findByWalletAddress(walletAddress);
   if (user) {
     return res.status(200).send(user);
@@ -25,7 +32,7 @@ router.post("/login", async (req, res) => {
 
   try {
     let name =
-      randomAdjectives[Math.floor(randomAdjectives.length * Math.random())] +
+      randomAdjectives[Math.floor(randomAdjectives.length * Math.random())] + ' '
       randomNames[Math.floor(randomNames.length * Math.random())];
     user = new User({
       walletAddress: walletAddress,
