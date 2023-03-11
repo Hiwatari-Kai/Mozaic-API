@@ -24,6 +24,7 @@ const userSchema = new mongoose.Schema({
 
   websiteLink: {
     type: String,
+    default: '',
     trim: true,
   },
   externalLinks: [

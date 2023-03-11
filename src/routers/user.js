@@ -3,7 +3,7 @@ const router = new express.Router();
 const User = require("../models/user");
 
 const randomNames = ["Kai", "Snape", "Zoid", "Sagar"];
-const randomAdjectives = ["Cool", "Happy", "Sexy"];
+const randomAdjectives = ["Assasin", "Titan", "Shinobi", "Sensei"];
 
 router.get("/profile", async (req, res) => {
   let walletAddress = req.query.walletAddress;
@@ -32,7 +32,7 @@ router.post("/login", async (req, res) => {
 
   try {
     let name =
-      randomAdjectives[Math.floor(randomAdjectives.length * Math.random())] + ' '
+      randomAdjectives[Math.floor(randomAdjectives.length * Math.random())] + ' ' + 
       randomNames[Math.floor(randomNames.length * Math.random())];
     user = new User({
       walletAddress: walletAddress,
