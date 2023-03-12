@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
   profileImageUrl: {
     type: String,
     default:
-      "https://res.cloudinary.com/dkoxgwtku/image/upload/v1677942841/hitler_as_a_modern_hipster_evsecp.jpg",
+      "https://i.pinimg.com/474x/f1/da/a7/f1daa70c9e3343cebd66ac2342d5be3f.jpg",
   },
   coverImageUrl: {
     type: String,
