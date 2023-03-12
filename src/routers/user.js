@@ -2,8 +2,8 @@ const express = require("express");
 const router = new express.Router();
 const User = require("../models/user");
 
-const randomNames = ["Kai", "Snape", "Zoid", "Sagar"];
-const randomAdjectives = ["Assasin", "Titan", "Shinobi", "Sensei"];
+const randomNames = ["Kai", "Snape", "Zoid"];
+const randomAdjectives = ["Titan", "Shinobi", "Sensei"];
 
 router.get("/profile", async (req, res) => {
   let walletAddress = req.query.walletAddress;
